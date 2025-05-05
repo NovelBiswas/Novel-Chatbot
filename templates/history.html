@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h2>🗂 Chat History</h2>
+    <div style="text-align:center; margin-bottom: 20px;">
+        <a href="/download_csv" class="back-link" style="font-weight:bold;">⬇️ Download History as CSV</a>
+    </div>
+    <form style="text-align:center; margin-bottom: 20px;" method="get">
+        <input type="text" name="q" placeholder="Search keyword..." value="{{ keyword }}" style="padding: 8px; width: 250px;">
+        <button type="submit" style="padding: 8px 12px;">🔍 Filter</button>
+    </form>
+    
+    <table>
+        <tr>
+            <th>User Message</th>
+            <th>Bot Response</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for msg, resp, ts in rows %}
+        <tr>
+            <td>{{ msg }}</td>
+            <td>{{ resp|safe }}</td>
+            <td>{{ ts }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a class="back-link" href="/">← Back to Chat</a>
+
+    <div id="chat-history" style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px;">
+        <h3>Recent Chat History</h3>
+        <ul id="history-list" style="list-style: none; padding-left: 0;"></ul>
+    </div>
+    
+    <script>
+    fetch("/history_json")
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("history-list");
+            data.forEach(item => {
+                const li = document.createElement("li");
+                li.innerHTML = `<strong>You:</strong> ${item.user}<br><strong>Bot:</strong> ${item.bot}<br><small>${item.time}</small><hr>`;
+                list.appendChild(li);
+            });
+        });
+    </script>
+    
+</body>
+</html>

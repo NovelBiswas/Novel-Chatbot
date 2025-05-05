@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Novel AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="tsparticles"></div>
+    <div class="chat-container">
+        <h2 class="title">Novel AI</h2>
+        <div id="chat-box" class="chat-box"></div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    <a href="/history" class="view-history">📜 View Chat History</a>  
+    </div>
+    
+    <script src="/static/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script>
+  tsParticles.load("tsparticles", {
+    fullScreen: { enable: true, zIndex: -1 },
+    particles: {
+      number: { value: 60 },
+      size: { value: 3 },
+      move: { enable: true, speed: 1 },
+      links: { enable: true, color: "#999", distance: 120 },
+      opacity: { value: 1},
+    },
+    background: {
+      color: "#b3e6f7"
+    }
+  });
+</script>
+
+</body>
+</html>
