@@ -38,7 +38,7 @@ responses = {
     "unknown": "Sorry, I didn't understand that."
 }
 
-SERPAPI_KEY = "6762d7ff5796a772ac88941bb2616124deb603e8862462de66eef5ec408e015d"
+SERPAPI_KEY = os.getenv("SERPAPI_KEY", "")
 
 # === SQLite DB Setup ===
 def init_db():
